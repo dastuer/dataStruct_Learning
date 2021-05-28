@@ -45,5 +45,8 @@ public class MyArrayQueue {
         elements = arr;
         return element;
     }
+    public boolean isEmpty(){
+        return elements.length == 0;
+    }
 
 }

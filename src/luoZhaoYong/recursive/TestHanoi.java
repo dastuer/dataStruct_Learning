@@ -3,7 +3,6 @@ package luoZhaoYong.recursive;
 public class TestHanoi {
     public static void main(String[] args) {
         hanoi(7,'A','B','C');
-
     }
     public static void hanoi(int n,char begin ,char mid, char end){
         if (n==1)

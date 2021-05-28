@@ -39,9 +39,6 @@ public class DoublyNode {
     public DoublyNode getNext(){
         return this.next;
     }
-    public DoublyNode getBefore(){
-        return this.pre;
-    }
     public DoublyNode getPre(){
         return this.pre;
     }
