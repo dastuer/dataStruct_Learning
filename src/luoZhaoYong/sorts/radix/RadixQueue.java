@@ -4,7 +4,6 @@ import luoZhaoYong.queue.MyArrayQueue;
 import sun.misc.Queue;
 
 import java.util.Arrays;
-import java.util.Stack;
 
 // 基数排序--列表实现
 public class RadixQueue {
@@ -63,6 +62,7 @@ public class RadixQueue {
         int maxLen = (max+"").length();
 
         Queue[] mods = new Queue[10];
+
 
         for (int i = 0,n=1; i < maxLen; i++,n*=10) {
             for (int j = 0; j < 10; j++) {

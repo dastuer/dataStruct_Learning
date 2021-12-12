@@ -1,113 +1,67 @@
-package luoZhaoYong.sorts.merge;
+package src.demo4;
 
 import java.util.Arrays;
 
 public class MergeSort {
+
     public static void main(String[] args) {
-        int[] arr = {3, 4, 4, 1, 4, 1, 7, 7, 8, 2};
-        mergeSort(arr, 0, arr.length - 1);
+        int[] arr = new int[] {1,3,5,2,4,6,8,10};
+        System.out.println(Arrays.toString(arr));
+        mergeSort(arr, 0, arr.length-1);
         System.out.println(Arrays.toString(arr));
     }
 
-    /**
-     * 递归执行归并
-     * 每次归并，从数组中间进行分割
-     * 当归并开始的位置大于或等于结束位置时，表示执行归并的数为1个数，它必定时有序的，此时退出递归
-     * 当归并开始和结束位置的差值为2时执行归并，再次递归时开始的位置大于或等于结束位置，结束递归，执行归并
-     * 保证两数有序后，递归不断向前执行，保证左半部分的数有序，再保证右半部分的数有序
-     * 再执行最后一次归并，原数组排序完成
-     * @param arr 排序数组
-     * @param begin 开始位置
-     * @param end 结束位置
-     */
-
-    public static void mergeSort(int[] arr, int begin, int end) {
-        int mid = (end + begin) / 2;
-        if (begin < end) {
-            mergeSort(arr, begin, mid);
-            mergeSort(arr, mid + 1, end);
-            merge(arr, begin, mid, end);
+    //归并排序
+    public static void mergeSort(int[] arr,int low,int high) {
+        int middle=(high+low)/2;
+        if(low<high) {
+            //处理左边
+            mergeSort(arr, low, middle);
+            //处理右边
+            mergeSort(arr, middle+1, high);
+            //归并
+            merge(arr,low,middle,high);
         }
     }
 
-    // 归并
-
-    /**
-     * 归并基于两个有序数组
-     * 输入数组是一个mid位置左右两边都有序的一个数组
-     * 从mid左边的第一个位置标记为i的数开始与mid右边的第一个位置标记为j的数进行比较
-     * 将较小的数保存再一个大小与原数组一样的新数组的第一个位置
-     * 从较小的数的右数与上次比较较大的数进行比较，将小数保存在新数组的第二个位置
-     * 依次比较，直到一边的数被全部保存再新数组，此时j或i超过了边界
-     * 将剩下未被放入新数组的数，即某一部分的尾部依次保存在新数组的后面
-     * 将原数组赋值为新数组，此时原数组必定是有序的
-     * @param arr 排序数组
-     * @param begin 归并开始位置
-     * @param mid   中间分割位置
-     * @param end   归并的尾部
-     */
-    public static void merge(int[] arr, int begin, int mid, int end) {
-        int[] temp = new int[end - begin + 1];
-        int i = begin;
-        int j = mid + 1;
-        int index = 0;
-        while (i <= mid && j <= end) {
-            if (arr[i] <= arr[j]) {
-                temp[index] = arr[i];
+    public static void merge(int[] arr,int low,int middle, int high) {
+        //用于存储归并后的临时数组
+        int[] temp = new int[high-low+1];
+        //记录第一个数组中需要遍历的下标
+        int i=low;
+        //记录第二个数组中需要遍历的下标
+        int j=middle+1;
+        //用于记录在临时数组中存放的下标
+        int index=0;
+        //遍历两个数组取出小的数字，放入临时数组中
+        while(i<=middle&&j<=high) {
+            //第一个数组的数据更小
+            if(arr[i]<=arr[j]) {
+                //把小的数据放入临时数组中
+                temp[index]=arr[i];
+                //让下标向后移一位；
                 i++;
-            } else {
-                temp[index] = arr[j];
+            }else {
+                temp[index]=arr[j];
                 j++;
             }
             index++;
         }
-        while (j <= end) {
-            temp[index++] = arr[j++];
+        //处理多余的数据
+        while(j<=high) {
+            temp[index]=arr[j];
+            j++;
+            index++;
         }
-        while (i <= mid) {
-            temp[index++] = arr[i++];
+        while(i<=middle) {
+            temp[index]=arr[i];
+            i++;
+            index++;
         }
-
-        System.arraycopy(temp, 0, arr, begin, temp.length);
-    }
-
-    /**
-     * 合并到一起
-     * @param arr
-     * @param begin
-     * @param end
-
-    public static void merge1(int[] arr, int begin, int end) {
-        int mid = (end + begin) / 2;
-        if (begin < end) {
-            merge1(arr, begin, mid);
-            merge1(arr, mid + 1, end);
-            int[] temp = new int[end - begin + 1];
-            int i = begin;
-            int j = mid + 1;
-            int index = 0;
-            while (i <= mid && j <= end) {
-                if (arr[i] <= arr[j]) {
-                    temp[index] = arr[i];
-                    i++;
-                } else {
-                    temp[index] = arr[j];
-                    j++;
-                }
-                index++;
-            }
-            while (j <= end) {
-                temp[index++] = arr[j++];
-            }
-            while (i <= mid) {
-                temp[index++] = arr[i++];
-            }
-
-            System.arraycopy(temp, 0, arr, begin, temp.length);
+        //把临时数组中的数据重新存入原数组
+        for(int k=0;k<temp.length;k++) {
+            arr[k+low]=temp[k];
         }
     }
-    **/
 
 }
-
-
